@@ -1,10 +1,14 @@
 package stepdefinitions;
 
 import base_url.BaseUrl;
+import enums.Endpoints;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import pojos.Sign_Up_POJO;
+import utilities.ApiUtils;
 
 import static datas.BodyData.validSignUpBody;
 import static io.restassured.RestAssured.given;
@@ -26,6 +30,12 @@ public class SignUp_StepDef extends BaseUrl {
 
     @And("User sends POST request")
     public void userSendsPOSTRequest() {
-        response= given(spec).body(expectedBody).post("/sign-up/email");
+        response= ApiUtils.post(spec, expectedBody, Endpoints.SIGN_UP_EMAIL.getPath());
+        response.prettyPrint();
+    }
+
+    @Then("Response status code should be {int}")
+    public void responseStatusCodeShouldBe(int statusCode) {
+        Assert.assertEquals(response.statusCode(), statusCode);
     }
 }
