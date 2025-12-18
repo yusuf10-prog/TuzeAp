@@ -31,7 +31,6 @@ public class SignUp_StepDef extends BaseUrl {
 
     @And("User sends POST request")
     public void userSendsPOSTRequest() {
-        System.out.println("POST STEP ÇALIŞTI");
         response = ApiUtils.post(spec, expectedBody, Endpoints.SIGN_UP_EMAIL.getPath());
         response.prettyPrint();
 }
